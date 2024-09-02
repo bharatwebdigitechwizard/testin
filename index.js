@@ -5,11 +5,16 @@ const bodyParser = require("body-parser");
 const socketio = require("socket.io");
 const cors = require('cors');
 const port = process.env.PORT || 5000; 
+const path = require("path")
+
+
+app.use(express.static(path.join(__dirname, 'dist')));
+
 
 app.use(cors({
     origin: "*", // Allow only your frontend origin
     methods: ["GET", "POST"], // Allow specific HTTP methods
-    credentials: true, // Allow credentials such as cookies to be sent
+    credentials: false, // Allow credentials such as cookies to be sent
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -24,10 +29,10 @@ const io = socketio(server, {
 });
 
 // Define a route to test the server
-app.get("/", (req, res) => {
-    console.log("Hello");
-    res.status(200).send();
-});
+// app.get("/", (req, res) => {
+//     console.log("Hello");
+//     res.status(200).send();
+// });
 
 // const authusers = io.fe
 // Socket.IO connection handler
@@ -43,7 +48,9 @@ io.on("connection", (socket) => {
     // })
 });
 
-
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
 // Start the server
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
