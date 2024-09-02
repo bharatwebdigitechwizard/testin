@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 app.use(cors({
     origin: "*", // Allow only your frontend origin
     methods: ["GET", "POST"], // Allow specific HTTP methods
-    credentials: false, // Allow credentials such as cookies to be sent
+    credentials: true, // Allow credentials such as cookies to be sent
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
