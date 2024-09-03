@@ -7,6 +7,10 @@ module.exports = (socket) => {
     socket.on("second", (data) => { 
         console.log(data,socket.id) 
     })
+    socket.on("newMessage",(data)=>{
+        console.log(data)
+        socket.broadcast.emit("setNewMessaging",data.mesageString)
+    })
 }
 
 
